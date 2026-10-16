@@ -20,10 +20,10 @@ export class HUD {
     el.style.cssText = `position:fixed;inset:0;pointer-events:none;font-family:'Baloo 2',cursive;`;
 
     this._p2Badge = this._badge(2);
-    this._p2Badge.style.cssText += `position:absolute;top:max(16px,env(safe-area-inset-top,0px)+8px);left:50%;transform:translateX(-50%);`;
+    this._p2Badge.style.cssText += `position:absolute;top:max(16px,calc(env(safe-area-inset-top,0px) + 8px));left:50%;transform:translateX(-50%);`;
 
     this._p1Badge = this._badge(1);
-    this._p1Badge.style.cssText += `position:absolute;bottom:max(80px,env(safe-area-inset-bottom,0px)+70px);left:50%;transform:translateX(-50%);`;
+    this._p1Badge.style.cssText += `position:absolute;bottom:max(80px,calc(env(safe-area-inset-bottom,0px) + 70px));left:50%;transform:translateX(-50%);`;
 
     const turnEl = document.createElement('div');
     turnEl.id = 'turn-indicator';
@@ -31,7 +31,7 @@ export class HUD {
     turnEl.textContent = 'YOUR TURN';
 
     const pauseBtn = document.createElement('button');
-    pauseBtn.style.cssText = `position:absolute;top:max(16px,env(safe-area-inset-top,0px)+8px);right:20px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(0,0,0,0.4);color:#fff;font-size:20px;cursor:pointer;pointer-events:auto;display:flex;align-items:center;justify-content:center;`;
+    pauseBtn.style.cssText = `position:absolute;top:max(16px,calc(env(safe-area-inset-top,0px) + 8px));right:20px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(0,0,0,0.4);color:#fff;font-size:20px;cursor:pointer;pointer-events:auto;display:flex;align-items:center;justify-content:center;`;
     pauseBtn.textContent = '⏸';
     pauseBtn.addEventListener('click', () => { this._audio.playSFX('sfx_btn_tap'); this._ui.show('pause-menu'); });
 

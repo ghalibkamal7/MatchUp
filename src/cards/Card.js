@@ -29,7 +29,7 @@ export class Card {
     const backTex  = CardTextureGenerator.generateBack();
     this._frontMat = new THREE.MeshStandardMaterial({ map:frontTex, roughness:0.6, metalness:0 });
     this._backMat  = new THREE.MeshStandardMaterial({ map:backTex,  roughness:0.6, metalness:0 });
-    const mats = [this._backMat, this._backMat, this._backMat, this._backMat, this._frontMat, this._backMat];
+    const mats = [this._backMat, this._backMat, this._frontMat, this._backMat, this._backMat, this._backMat];
     this._mesh = new THREE.Mesh(geo, mats);
     this._mesh.name = `Card_${this.pictureID}_${this.id}`;
     this._mesh.castShadow = true; this._mesh.receiveShadow = true;
@@ -41,8 +41,8 @@ export class Card {
   get mesh() { if (!this._built) this.build(); return this._mesh; }
   get position() { return this._mesh?.position ?? new THREE.Vector3(); }
 
-  flipFaceUp()   { this.isFaceUp = true;  if (this._mesh) this._mesh.rotation.y = 0; }
-  flipFaceDown() { this.isFaceUp = false; if (this._mesh) this._mesh.rotation.y = Math.PI; }
+  flipFaceUp()   { this.isFaceUp = true;  if (this._mesh) this._mesh.rotation.x = 0; }
+  flipFaceDown() { this.isFaceUp = false; if (this._mesh) this._mesh.rotation.x = Math.PI; }
 
   setGlow(active, color = 0xffd700) {
     if (!this._frontMat) return;

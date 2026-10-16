@@ -12,7 +12,7 @@ import { Props }             from './village/Props.js';
 import { ATMOSPHERE, TABLE } from '../utils/Constants.js';
 
 const LAYOUT = Object.freeze({
-  BANYAN:    new THREE.Vector3(-8, 0, -10),
+  BANYAN:    new THREE.Vector3(-12, 0, -10),
   TABLE:     new THREE.Vector3(0, TABLE.SURFACE_Y, 0),
   CHAIR_P1:  new THREE.Vector3(0, 0,  3.5),
   CHAIR_P2:  new THREE.Vector3(0, 0, -3.5),
@@ -23,7 +23,7 @@ const LAYOUT = Object.freeze({
     new THREE.Vector3( 26, 0, -30),
     new THREE.Vector3(-16, 0, -25),
   ],
-  LANTERN:   new THREE.Vector3(-2, 5.5, -1),
+  LANTERN:   new THREE.Vector3(12, 3.0, -17.2),
   POTS: [
     new THREE.Vector3(10,   0, -14),
     new THREE.Vector3(11.5, 0, -13.5),

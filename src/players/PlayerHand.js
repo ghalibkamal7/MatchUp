@@ -4,8 +4,6 @@
  */
 
 import * as THREE from 'three';
-import { CARD }   from '../utils/Constants.js';
-
 export class PlayerHand {
   constructor(config) {
     this._scene    = config.scene;
@@ -19,7 +17,7 @@ export class PlayerHand {
     this._cards = [...cards];
     for (const card of this._cards) {
       card.mesh.position.copy(deckOrigin);
-      card.mesh.rotation.y = Math.PI;
+      card.mesh.rotation.x = Math.PI;
       this._scene.add(card.mesh);
     }
     this._animator.arrangeFan(this._cards, this._position, this._facing, true);

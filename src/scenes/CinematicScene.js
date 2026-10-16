@@ -36,6 +36,8 @@ export class CinematicScene {
     this._active     = false;
     this._overlay    = null;
     this._buildError = false;
+    this._lookTarget = new THREE.Vector3(0, LOOK_START.y, 0);
+    this._cameraTween = null;
   }
 
   async start() {
@@ -83,6 +85,14 @@ export class CinematicScene {
     if (DEBUG.ENABLED) console.log('[CinematicScene] → menu background');
   }
 
+  focusGameplay() {
+    return this._moveCamera(CAMERA.GAMEPLAY, CAMERA.GAMEPLAY_LOOK_AT, 1.2);
+  }
+
+  focusMenu() {
+    return this._moveCamera(CAM_PATH.P3, LOOK_END, 1.0);
+  }
+
   destroy() {
     this._active = false;
     try {
@@ -98,7 +108,8 @@ export class CinematicScene {
 
   _buildScene() {
     this._scene = new THREE.Scene();
-    this._scene.fog = new THREE.FogExp2(0xff9a3c, 0.008);
+    this._scene.background = new THREE.Color(0xd8c2a8);
+    this._scene.fog = new THREE.FogExp2(0xd8c2a8, 0.006);
     this._camera = new THREE.PerspectiveCamera(
       CAMERA.FOV,
       window.innerWidth / window.innerHeight,
@@ -171,11 +182,34 @@ export class CinematicScene {
     const st  = smootherStep(t);
     const pos = cubicBezier3D(st, CAM_PATH.P0, CAM_PATH.P1, CAM_PATH.P2, CAM_PATH.P3);
     this._camera.position.set(pos.x, pos.y, pos.z);
-    this._camera.lookAt(
+    this._lookTarget.set(
       LOOK_START.x + (LOOK_END.x - LOOK_START.x) * st,
       LOOK_START.y + (LOOK_END.y - LOOK_START.y) * st,
       LOOK_START.z + (LOOK_END.z - LOOK_START.z) * st,
     );
+    this._camera.lookAt(this._lookTarget);
+  }
+
+  _moveCamera(position, target, duration) {
+    if (!this._camera) return Promise.resolve();
+    this._cameraTween?.kill();
+    return new Promise(resolve => {
+      const pose = {
+        x:this._camera.position.x, y:this._camera.position.y, z:this._camera.position.z,
+        tx:this._lookTarget.x, ty:this._lookTarget.y, tz:this._lookTarget.z,
+      };
+      this._cameraTween = gsap.to(pose, {
+        x:position.x, y:position.y, z:position.z,
+        tx:target.x, ty:target.y, tz:target.z,
+        duration, ease:'power2.inOut',
+        onUpdate:() => {
+          this._camera.position.set(pose.x, pose.y, pose.z);
+          this._lookTarget.set(pose.tx, pose.ty, pose.tz);
+          this._camera.lookAt(this._lookTarget);
+        },
+        onComplete:() => { this._cameraTween = null; resolve(); },
+      });
+    });
   }
 
   _setCameraToEnd() {

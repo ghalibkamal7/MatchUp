@@ -39,9 +39,9 @@ export class CardStack {
 
   _topPosition() {
     return new THREE.Vector3(
-      this.origin.x + randomFloat(-0.01, 0.01),
+      this.origin.x + randomFloat(-0.035, 0.035),
       this.origin.y + this._cards.length * CARD.DECK_LAYER_OFFSET,
-      this.origin.z + randomFloat(-0.01, 0.01),
+      this.origin.z + randomFloat(-0.035, 0.035),
     );
   }
 
