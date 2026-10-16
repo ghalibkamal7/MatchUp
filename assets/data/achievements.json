@@ -1,0 +1,9 @@
+[
+  { "id": "first_match",    "title": "First Match!",     "desc": "Win your first pile",            "goal": 1,   "icon": "🎯" },
+  { "id": "ten_matches",    "title": "Matchmaker",       "desc": "Win 10 piles in one game",       "goal": 10,  "icon": "🔥" },
+  { "id": "win_streak_3",   "title": "Hat Trick",        "desc": "Win 3 games in a row",           "goal": 3,   "icon": "🏆" },
+  { "id": "games_played_5", "title": "Getting Started",  "desc": "Play 5 matches",                 "goal": 5,   "icon": "🃏" },
+  { "id": "games_played_25","title": "Card Shark",       "desc": "Play 25 matches",                "goal": 25,  "icon": "🦈" },
+  { "id": "total_piles_50", "title": "Pile Master",      "desc": "Win 50 total piles",             "goal": 50,  "icon": "📦" },
+  { "id": "beat_hard_cpu",  "title": "Grandmaster",      "desc": "Beat the CPU on Hard difficulty","goal": 1,   "icon": "🧠" }
+]

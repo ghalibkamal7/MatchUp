@@ -1,0 +1,26 @@
+{
+  "name": "matchup",
+  "version": "1.0.0",
+  "description": "MatchUp - Premium Indian Matchbox Card Game",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "cap:init": "cap init",
+    "cap:android": "cap add android",
+    "cap:sync": "cap sync",
+    "cap:open": "cap open android"
+  },
+  "dependencies": {
+    "three": "^0.158.0",
+    "gsap": "^3.12.3",
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@capacitor/core": "^5.5.0",
+    "@capacitor/cli": "^5.5.0",
+    "@capacitor/android": "^5.5.0"
+  }
+}
