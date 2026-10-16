@@ -147,6 +147,7 @@ EventBus.on(EVENTS.BTN_QUICK_PLAY, async () => {
   uiManager.show('hud');
   const cs = sceneManager.cinematicScene;
   if (!cs) return;
+  await cs.focusGameplay();
   const scene  = cs.scene;
   const camera = cs.camera;
   if (camera) cameraShake = new CameraShake(camera);
@@ -174,12 +175,16 @@ EventBus.on(EVENTS.BTN_MAIN_MENU, () => {
   gameManager = null;
   cameraShake?.destroy();
   cameraShake = null;
+  sceneManager.cinematicScene?.focusMenu();
   uiManager.show('main-menu');
 });
 
 EventBus.on(EVENTS.GAME_RESET, () => {
   gameManager?.reset();
   gameManager = null;
+  cameraShake?.destroy();
+  cameraShake = null;
+  sceneManager.cinematicScene?.focusMenu();
 });
 
 // ── Resize ────────────────────────────────────────────────────────────────────

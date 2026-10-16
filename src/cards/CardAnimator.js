@@ -25,7 +25,7 @@ export class CardAnimator {
       const cp2 = { x: fromPos.x + (toPos.x - fromPos.x)*0.75, y: toPos.y   + CARD.CARD_LIFT_HEIGHT*2.0, z: fromPos.z + (toPos.z - fromPos.z)*0.75 };
 
       const progress = { t:0 };
-      const startRot = { y: mesh.rotation.y };
+      const startRot = { x: mesh.rotation.x };
       const tl = gsap.timeline({ onComplete: resolve });
       this._timelines.set(card.id, tl);
 
@@ -39,8 +39,8 @@ export class CardAnimator {
         },
       }, '-=0.05');
       tl.to(startRot, {
-        y: faceUp ? 0 : Math.PI, duration: ANIM.CARD_FLIP_DURATION, ease:'power2.inOut',
-        onUpdate: () => { mesh.rotation.y = startRot.y; },
+        x: faceUp ? 0 : Math.PI, duration: ANIM.CARD_FLIP_DURATION, ease:'power2.inOut',
+        onUpdate: () => { mesh.rotation.x = startRot.x; },
       }, `-=${ANIM.CARD_FLY_DURATION * 0.8}`);
       tl.to(mesh.position, { y: toPos.y + ANIM.CARD_BOUNCE_HEIGHT, duration: ANIM.CARD_BOUNCE_DURATION*0.4, ease:'power2.out' })
         .to(mesh.position, { y: toPos.y, duration: ANIM.CARD_BOUNCE_DURATION*0.6, ease: ANIM.EASE_CARD_BOUNCE,
@@ -52,7 +52,7 @@ export class CardAnimator {
   dealCard(card, from, to, delay = 0) {
     return new Promise(resolve => {
       const mesh = card.mesh;
-      mesh.position.copy(from); mesh.rotation.y = Math.PI;
+      mesh.position.copy(from); mesh.rotation.x = Math.PI;
       const mid = { x:(from.x+to.x)/2, y:Math.max(from.y,to.y)+1.2, z:(from.z+to.z)/2 };
       const progress = { t:0 };
       gsap.to(progress, {
@@ -100,9 +100,9 @@ export class CardAnimator {
       const tz     = pivot.z + Math.cos(angle)*CARD.FAN_RADIUS*0.1*facing;
       if (animate) {
         gsap.to(card.mesh.position, { x:tx, y:ty, z:tz, duration:ANIM.FAN_FORM_DURATION, ease:'power2.out', delay:i*0.02 });
-        gsap.to(card.mesh.rotation, { y:Math.PI+angle*0.5, duration:ANIM.FAN_FORM_DURATION, ease:'power2.out', delay:i*0.02 });
+        gsap.to(card.mesh.rotation, { x:Math.PI, y:angle*0.5, duration:ANIM.FAN_FORM_DURATION, ease:'power2.out', delay:i*0.02 });
       } else {
-        card.mesh.position.set(tx,ty,tz); card.mesh.rotation.y = Math.PI+angle*0.5;
+        card.mesh.position.set(tx,ty,tz); card.mesh.rotation.set(Math.PI, angle*0.5, 0);
       }
     });
   }

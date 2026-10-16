@@ -145,9 +145,9 @@ export class GameManager {
     this._setState(STATE.ANIMATING);
     let isMatch = false;
     try {
+      const fromPos = card.mesh.position.clone();
       hand.takeTopCard();
       const pilePos = this._pile.addCard(card);
-      const fromPos = hand.topCardPosition.clone();
       this._scene.add(card.mesh);
       EventBus.emit(EVENTS.CARD_PLAY_START, { player, card });
       this._audio.playSFX('sfx_card_lift');
